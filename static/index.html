@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local RAG Lite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar para subir archivos -->
+        <aside class="sidebar">
+            <h2>Local RAG Lite</h2>
+            <p>Sube tus documentos (PDF, TXT) para empezar a hacer preguntas.</p>
+            
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" accept=".pdf,.txt" hidden>
+                <label for="fileInput" class="upload-btn">Seleccionar Archivo</label>
+                <div id="uploadStatus" class="status-msg"></div>
+            </div>
+            
+            <div class="info-panel">
+                <small>Modelo actual: <b>qwen2.5:3b</b></small>
+            </div>
+        </aside>
+
+        <!-- Área principal de Chat -->
+        <main class="chat-container">
+            <div class="chat-history" id="chatHistory">
+                <div class="message system-msg">
+                    👋 ¡Hola! Sube un documento a la izquierda y pregúntame lo que necesites sobre él.
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <form id="chatForm">
+                    <input type="text" id="messageInput" placeholder="Haz una pregunta sobre el documento..." autocomplete="off" required>
+                    <button type="submit" id="sendBtn">Enviar</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-multipart
+chromadb-client
+fastembed
+PyMuPDF
+httpx
+pydantic
