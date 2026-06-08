@@ -38,6 +38,15 @@ async def upload_file(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/api/files")
+async def list_files():
+    try:
+        files = os.listdir("uploads")
+        # Filter out hidden files or non-files if needed, but simple listdir is fine here
+        return {"status": "success", "files": sorted(files)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
     if not request.message:

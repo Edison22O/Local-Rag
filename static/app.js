@@ -5,6 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageInput = document.getElementById('messageInput');
     const chatHistory = document.getElementById('chatHistory');
     const sendBtn = document.getElementById('sendBtn');
+    const fileList = document.getElementById('fileList');
+
+    // Cargar historial de archivos al iniciar
+    async function fetchFiles() {
+        try {
+            const response = await fetch('/api/files');
+            const data = await response.json();
+            
+            if (response.ok && data.files.length > 0) {
+                fileList.innerHTML = '';
+                data.files.forEach(file => {
+                    const li = document.createElement('li');
+                    li.textContent = file;
+                    fileList.appendChild(li);
+                });
+            } else {
+                fileList.innerHTML = '<li class="empty-list">Ningún archivo cargado.</li>';
+            }
+        } catch (e) {
+            console.error("Error al cargar archivos", e);
+        }
+    }
+    
+    // Cargar archivos iniciales
+    fetchFiles();
 
     // Manejar carga de archivos
     fileInput.addEventListener('change', async (e) => {
@@ -28,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 uploadStatus.textContent = `✅ Listo. Indexados ${data.chunks} fragmentos.`;
                 uploadStatus.className = 'status-msg';
+                fetchFiles(); // Actualizar la lista
             } else {
                 throw new Error(data.detail || 'Error al subir');
             }
