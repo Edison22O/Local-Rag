@@ -2,7 +2,7 @@ import httpx
 
 # Configuración del modelo y host de Ollama
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "qwen2.5:3b"
+OLLAMA_MODEL = "llama3.2:1b"
 
 def generate_response(question: str, context_chunks: list[str]) -> str:
     """
@@ -32,7 +32,7 @@ def generate_response(question: str, context_chunks: list[str]) -> str:
     }
     
     try:
-        response = httpx.post(OLLAMA_URL, json=payload, timeout=60.0)
+        response = httpx.post(OLLAMA_URL, json=payload, timeout=300.0)
         response.raise_for_status()
         data = response.json()
         return data.get("response", "Error al extraer respuesta del modelo.")
